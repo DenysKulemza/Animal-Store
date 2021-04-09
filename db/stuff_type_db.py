@@ -5,16 +5,15 @@ from logger.logging import loggers
 db = SQLAlchemy(app)
 
 
-class User(db.Model):
-    __tablename__ = 'users'
+class StuffType(db.Model):
+    __tablename__ = 'stuff_type'
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(30),  nullable=False)
-    password = db.Column(db.String(10), nullable=False)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(40), nullable=False)
+    city_id = db.Column(db.Integer, nullable=False)
     address = db.Column(db.String(40), nullable=False)
 
     @staticmethod
-    def add_user(request, _login, _password, _address):
+    def add_center(request, _login, _password, _address):
         """Adding some user
 
         :param request: of the input form
@@ -24,7 +23,7 @@ class User(db.Model):
         :return: nothing
         """
 
-        new_user = User(login=_login, password=_password, address=_address)
+        new_user = Centers(login=_login, password=_password, address=_address)
         db.session.add(new_user)
         db.session.commit()
         loggers(request, new_user.id, 'New center was added', new_user.id)
@@ -42,4 +41,4 @@ class User(db.Model):
 
         :return: centers
         """
-        return [User.display_centers(user) for user in User.query.all()]
+        return [Centers.display_centers(user) for user in Centers.query.all()]

@@ -1,33 +1,28 @@
 #!/usr/bin/env python3
 
 import datetime
-import jwt
-from flask import request, Response
-
 from json import dumps
 
-from db.user_db import User
-from db.animal_db import Animal
+import jwt
+from flask import request, Response, render_template_string
+
 from db.access_request import AccessToken
+from db.animal_db import Animal
 from db.specie_db import Specie
-
+from db.user_db import User
+from error_variables.error_msg import exists_animal_in_center_error_msg
+from error_variables.error_msg import exists_center_error_msg
+from error_variables.error_msg import invalid_animal_error_msg
+from error_variables.error_msg import invalid_id_error_msg
+from error_variables.error_msg import invalid_sign_in_error_msg
+from error_variables.error_msg import invalid_species_error_msg
+from error_variables.error_msg import invalid_token_error_msg
+from error_variables.error_msg import invalid_user_error_msg
 from settings import app
-
-from validation.valid import valid_user, valid_animals, valid_species
+from validation.getters import get_access, get_specie
 from validation.valid import center_exists, check_center_before_delete
 from validation.valid import valid_token, valid_login_password
-
-from validation.getters import get_access, get_specie
-
-from error_variables.error_msg import exists_center_error_msg
-from error_variables.error_msg import exists_animal_in_center_error_msg
-from error_variables.error_msg import invalid_sign_in_error_msg
-from error_variables.error_msg import invalid_token_error_msg
-from error_variables.error_msg import invalid_id_error_msg
-from error_variables.error_msg import invalid_animal_error_msg
-from error_variables.error_msg import invalid_species_error_msg
-from error_variables.error_msg import invalid_user_error_msg
-
+from validation.valid import valid_user, valid_animals, valid_species
 
 app.config['SECRET_KEY'] = 'secret key'
 
@@ -222,6 +217,20 @@ def delete_animal(animal_id):
         else:
             return Response(exists_animal_in_center_error_msg,
                             status=200, mimetype='application/json')
+
+
+@app.route('/special')
+def special_page():
+    return render_template_string("""
+            {% extends "base.html" %}
+            {% block content %}
+                <h2>Special Page</h2>
+                <p>This page can only be accessed by user007.</p><br/>
+                <p><a href={{ url_for('home_page') }}>Home page</a> (anyone)</p>
+                <p><a href={{ url_for('members_page') }}>Members page</a> (login required)</p>
+                <p><a href={{ url_for('special_page') }}>Special page</a> (login with username 'user007' and password 'Password1')</p>
+            {% endblock %}
+            """)
 
 
 app.run(port=5001)
