@@ -30,7 +30,7 @@ user_failed = {
 specie_exists_now = {
     "Name": "Cat",
     "Description": "red",
-    "Prie": "12"
+    "Price": "12"
 }
 
 
