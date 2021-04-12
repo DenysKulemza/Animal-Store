@@ -1,15 +1,15 @@
-from db.specie_db import Specie
-from db.animal_db import Animal
 from db.access_request import AccessToken
+from db.animal_db import Animal
+from db.specie_db import Specie
 
 
-def get_specie(_name):
+def get_specie(name):
     """ Get specie by name
 
-    :param _name: name of specie
+    :param name: name of specie
     :return: specific specie by name
     """
-    return Specie.query.filter_by(name=_name).first()
+    return Specie.query.filter_by(name=name).first()
 
 
 def get_access():
@@ -29,11 +29,10 @@ def get_animal_id__by_name_for_logger():
     return animal.id
 
 
-def get_specie_by_name_for_logger(_name):
+def get_specie_by_name_for_logger():
     """Getting specie id by name for logging it
 
-    :param _name: name of some specie
-    :return: if of some specie
+    :return: specie id
     """
     specie = Specie.query.order_by(Specie.id.desc()).first()
     return specie.id

@@ -7,26 +7,25 @@ db = SQLAlchemy(app)
 
 class Centers(db.Model):
     __tablename__ = 'centers'
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
-    city_id = db.Column(db.Integer, nullable=False)
-    address = db.Column(db.String(40), nullable=False)
+    city = db.Column(db.String, nullable=False)
+    address = db.Column(db.String(40), nullable=False, primary_key=True)
 
     @staticmethod
-    def add_center(request, _login, _password, _address):
+    def add_center(request, name, city, address):
         """Adding some user
 
         :param request: of the input form
-        :param _login: login of some center
-        :param _password: password of some center
-        :param _address: address of some center
+        :param name: name of some center
+        :param city: city of some center
+        :param address: address of some center
         :return: nothing
         """
 
-        new_user = Centers(login=_login, password=_password, address=_address)
-        db.session.add(new_user)
+        new_center = Centers(name=name, city=city, address=address)
+        db.session.add(new_center)
         db.session.commit()
-        loggers(request, new_user.id, 'New center was added', new_user.id)
+        loggers(request, new_center.id, 'New center was added', new_center.id)
 
     def display_centers(self):
         """Display centers with id
@@ -41,4 +40,4 @@ class Centers(db.Model):
 
         :return: centers
         """
-        return [Centers.display_centers(user) for user in Centers.query.all()]
+        return [Centers.display_centers(center) for center in Centers.query.all()]

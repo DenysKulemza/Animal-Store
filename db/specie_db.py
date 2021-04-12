@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
+
 from db.access_request import AccessToken
 from db.animal_db import Animal
-from settings import app
 from logger.logging import loggers
+from settings import app
 
 db = SQLAlchemy(app)
 
@@ -15,16 +16,15 @@ class Specie(db.Model):
     price = db.Column(db.Integer, nullable=False)
 
     @staticmethod
-    def add_specie(request, _name, _description, _price):
+    def add_specie(request, name, description, price):
         """Adding new specie
 
         :param request: request of input form
-        :param _name: name of some specie
-        :param _description: description of some specie
-        :param _price: price of some specie
-        :return: nothing
+        :param name: name of some specie
+        :param description: description of some specie
+        :param price: price of some specie
         """
-        new_specie = Specie(name=_name, description=_description, price=_price)
+        new_specie = Specie(name=name, description=description, price=price)
         db.session.add(new_specie)
         db.session.commit()
         access = AccessToken.query.order_by(AccessToken.id.desc()).first()
@@ -49,22 +49,22 @@ class Specie(db.Model):
                 'Id ': self.id, 'Specie ': self.name}
 
     @staticmethod
-    def get_specie_animals(_id):
+    def get_specie_animals(animal_id):
         """Getting animal by specie
 
-        :param _id: some id of animal
+        :param animal_id: some id of animal
         :return: animal in json
         """
-        return [Specie.find_animal(_id) for _ in Specie.query.all()]
+        return [Specie.find_animal(animal_id) for _ in Specie.query.all()]
 
     @staticmethod
-    def find_animal(_id):
+    def find_animal(specie_id):
         """Finds some animal
 
-        :param _id: id of some specie
+        :param specie_id: id of some specie
         :return: animal
         """
-        specie = Specie.query.filter_by(id=_id).first()
+        specie = Specie.query.filter_by(id=specie_id).first()
         return [Specie.specie_animals(specie, animal.name)
                 for animal in
                 Animal.query.filter_by(species=specie.name).all()]

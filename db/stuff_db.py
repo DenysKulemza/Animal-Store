@@ -11,21 +11,21 @@ class Stuff(db.Model):
     __tablename__ = 'stuff'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(10), nullable=False)
-    stuff_type_id = db.Column(db.Integer, nullable=False)
+    stuff_type_id = db.Column(db.Integer, db.ForeignKey('stuff_type.id', ondelete='CASCADE'), nullable=False)
     description = db.Column(db.String(30), nullable=False)
     price = db.Column(db.Integer, nullable=False)
 
     @staticmethod
-    def add_stuff(request, _name, _description, _price):
+    def add_stuff(request, name, description, price):
         """Adding new specie
 
         :param request: request of input form
-        :param _name: name of some specie
-        :param _description: description of some specie
-        :param _price: price of some specie
+        :param name: name of some specie
+        :param description: description of some specie
+        :param price: price of some specie
         :return: nothing
         """
-        new_specie = Specie(name=_name, description=_description, price=_price)
+        new_specie = Stuff(name=name, description=description, price=price)
         db.session.add(new_specie)
         db.session.commit()
         access = AccessToken.query.order_by(AccessToken.id.desc()).first()
@@ -50,22 +50,22 @@ class Stuff(db.Model):
                 'Id ': self.id, 'Specie ': self.name}
 
     @staticmethod
-    def get_stuff(_id):
+    def get_stuff(stuff_id):
         """Getting animal by specie
 
-        :param _id: some id of animal
+        :param stuff_id: some id of stuff
         :return: animal in json
         """
-        return [Specie.find_animal(_id) for _ in Specie.query.all()]
+        return [Stuff.find_stuff(stuff_id) for _ in Stuff.query.all()]
 
     @staticmethod
-    def find_stuff(_id):
+    def find_stuff(stuff_id):
         """Finds some animal
 
-        :param _id: id of some specie
+        :param stuff_id: id of stuff
         :return: animal
         """
-        specie = Specie.query.filter_by(id=_id).first()
-        return [Specie.specie_animals(specie, animal.name)
+        specie = Stuff.query.filter_by(id=stuff_id).first()
+        return [Stuff.specie_animals(specie, animal.name)
                 for animal in
                 Animal.query.filter_by(species=specie.name).all()]

@@ -1,9 +1,6 @@
 import unittest
-from db.specie_db import *
-from db.animal_db import *
-from db.user_db import *
-from validation.valid import *
 
+from validation.valid import *
 
 user_true = {
     "Login": "Dandy",
@@ -53,4 +50,3 @@ class TestProgram(unittest.TestCase):
 
         """
         self.assertEqual(False, valid_animals(animal_age_failed), 'Test of "invalid" failed')
-
