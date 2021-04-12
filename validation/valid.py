@@ -1,8 +1,10 @@
 import re
-from db.specie_db import Specie
-from db.animal_db import Animal
-from db.user_db import User
+
 from jwt import decode
+
+from db.animal_db import Animal
+from db.specie_db import Specie
+from db.user_db import User
 from logger.warning_log import warning_log
 
 
@@ -94,48 +96,48 @@ def age_validation(obj):
         return False
 
 
-def center_exists(_login):
+def center_exists(login):
     """Check if some center exists
 
-    :param _login: login of some center
+    :param login: login of some center
     :return: boolean
     """
-    center = User.query.filter_by(login=_login).first()
+    center = User.query.filter_by(login=login).first()
     if center is not None:
-        warning_log(f"Center by this login: {_login} is already exists")
+        warning_log(f"Center by this login: {login} is already exists")
         return True
     else:
         return False
 
 
-def specie_exists(_name):
+def specie_exists(name):
     """Check if some specie exists
 
-    :param _name: name of some specie
+    :param name: name of some specie
     :return: boolean
     """
-    specie = Specie.query.filter_by(name=_name).first()
+    specie = Specie.query.filter_by(name=name).first()
     if specie is not None:
-        warning_log(f"Specie by this name: {_name}  exists")
+        warning_log(f"Specie by this name: {name}  exists")
         return False
     else:
         return True
 
 
-def check_center_before_delete(_center_id, _id):
+def check_center_before_delete(center_id, animal_id):
     """Check center before delete
 
-        :param _center_id: id of some center
-        :param _id: id of some animal
+        :param center_id: id of some center
+        :param animal_id: id of some animal
         :return: boolean
         """
-    animal = Animal.query.\
-        filter_by(id=_id).filter_by(center_id=_center_id).first()
+    animal = Animal.query. \
+        filter_by(id=animal_id).filter_by(center_id=center_id).first()
     if animal is not None:
         return True
     else:
-        warning_log(f"Center by this id: {_center_id} "
-                    f"does not have animal by this id {_id}")
+        warning_log(f"Center by this id: {center_id} "
+                    f"does not have animal by this id {animal_id}")
         return False
 
 
@@ -153,14 +155,14 @@ def valid_token(token, config):
         return True
 
 
-def valid_login_password(_login, _password):
+def valid_login_password(login, password):
     """Valid user login and password
 
-    :param _login: login of some center
-    :param _password: password of some center
+    :param login: login of some center
+    :param password: password of some center
     :return: boolean
     """
-    user = User.query.filter_by(login=_login, password=_password).first()
+    user = User.query.filter_by(login=login, password=password).first()
     if user is not None:
         return True
     else:

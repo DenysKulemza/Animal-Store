@@ -1,18 +1,19 @@
 from flask_sqlalchemy import SQLAlchemy
-from settings import app
+
 from logger.logging import loggers
+from settings import app
 
 db = SQLAlchemy(app)
 
 
 class Animal(db.Model):
-    __tablename__ = 'Animals'
+    __tablename__ = 'animals'
     id = db.Column(db.Integer, primary_key=True)
-    center_id = db.Column(db.Integer, nullable=False)
+    center_address = db.Column(db.Integer, db.ForeignKey('centers.address', ondelete='CASCADE'), nullable=False)
     name = db.Column(db.String(10), nullable=False)
     description = db.Column(db.String(100))
     age = db.Column(db.Integer, nullable=False)
-    species = db.Column(db.String(15), nullable=False)
+    specie_id = db.Column(db.Integer, db.ForeignKey('specie.id', ondelete='CASCADE'), nullable=False)
     price = db.Column(db.Integer)
 
     def json(self):
@@ -32,13 +33,13 @@ class Animal(db.Model):
                 'Species': self.species, 'Price': self.price}
 
     @staticmethod
-    def display_current_animal(_id):
+    def display_current_animal(animal_id):
         """Finds an animal in the database by id
 
-        :param _id: id of some animal
+        :param animal_id: id of some animal
         :return: information about this animal
         """
-        animal = Animal.query.filter_by(id=_id).first()
+        animal = Animal.query.filter_by(id=animal_id).first()
         return Animal.current_animal(animal)
 
     @staticmethod
@@ -101,47 +102,47 @@ class Animal(db.Model):
         return [Animal.json(animal) for animal in Animal.query.all()]
 
     @staticmethod
-    def update_animal(request, _id, _name, _age):
+    def update_animal(request, animal_id, name, age):
         """Update information about animal
 
         :param request: request of input form
-        :param _id: id of some animal
-        :param _name: name of some animal
-        :param _age: age of some animal
+        :param animal_id: id of some animal
+        :param name: name of some animal
+        :param age: age of some animal
         :return: nothing
         """
-        animal = Animal.query.filter_by(id=_id).first()
-        if _name is None and _age is not None:
-            animal.age = _age
-        elif _name is not None and _age is None:
-            animal.name = _name
+        animal = Animal.query.filter_by(id=animal_id).first()
+        if name is None and age is not None:
+            animal.age = age
+        elif name is not None and age is None:
+            animal.name = name
         else:
-            animal.name = _name
-            animal.age = _age
+            animal.name = name
+            animal.age = age
         db.session.commit()
         loggers(request, animal.center_id, 'Animal was updated', animal.id)
 
     @staticmethod
-    def delete_animal(request, _id):
+    def delete_animal(request, animal_id):
         """Deleting animal by id
 
         :param request: request of some url
-        :param _id: id of some animal
+        :param animal_id: id of some animal
         :return: nothing
         """
-        animal = Animal.query.filter_by(id=_id).first()
-        Animal.query.filter_by(id=_id).delete()
+        animal = Animal.query.filter_by(id=animal_id).first()
+        Animal.query.filter_by(id=animal_id).delete()
         db.session.commit()
         loggers(request, animal.center_id, 'Animal was deleted', animal.id)
 
     @staticmethod
-    def check_animal_before_delete(_id):
+    def check_animal_before_delete(animal_id):
         """Check if animal exists
 
-        :param _id: id of some animal
+        :param animal_id: id of some animal
         :return: boolean
         """
-        animal = Animal.query.filter_by(id=_id).first()
+        animal = Animal.query.filter_by(id=animal_id).first()
         if animal is None:
             return True
         else:

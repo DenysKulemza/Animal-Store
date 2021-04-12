@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from settings import app
+
 from logger.logging import loggers
+from settings import app
 
 db = SQLAlchemy(app)
 
@@ -8,37 +9,36 @@ db = SQLAlchemy(app)
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    login = db.Column(db.String(30),  nullable=False)
+    login = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(10), nullable=False)
     name = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(40), nullable=False)
 
     @staticmethod
-    def add_user(request, _login, _password, _address):
+    def add_user(request, login, password, address):
         """Adding some user
 
         :param request: of the input form
-        :param _login: login of some center
-        :param _password: password of some center
-        :param _address: address of some center
-        :return: nothing
+        :param login: login of some center
+        :param password: password of some center
+        :param address: address of some center
         """
 
-        new_user = User(login=_login, password=_password, address=_address)
+        new_user = User(login=login, password=password, address=address)
         db.session.add(new_user)
         db.session.commit()
-        loggers(request, new_user.id, 'New center was added', new_user.id)
+        loggers(request, new_user.id, 'New user was added', new_user.id)
 
-    def display_centers(self):
-        """Display centers with id
+    def display_user(self):
+        """Display user with id
 
         :return: name of centers and id
         """
         return {'Name: ': self.login, 'Id: ': str(self.id)}
 
     @staticmethod
-    def get_all_centers():
-        """Getting all centers
+    def get_all_users():
+        """Getting all users
 
         :return: centers
         """

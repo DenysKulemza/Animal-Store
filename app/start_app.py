@@ -4,7 +4,7 @@ import datetime
 from json import dumps
 
 import jwt
-from flask import request, Response, render_template_string
+from flask import request, Response
 
 from db.access_request import AccessToken
 from db.animal_db import Animal
@@ -217,20 +217,6 @@ def delete_animal(animal_id):
         else:
             return Response(exists_animal_in_center_error_msg,
                             status=200, mimetype='application/json')
-
-
-@app.route('/special')
-def special_page():
-    return render_template_string("""
-            {% extends "base.html" %}
-            {% block content %}
-                <h2>Special Page</h2>
-                <p>This page can only be accessed by user007.</p><br/>
-                <p><a href={{ url_for('home_page') }}>Home page</a> (anyone)</p>
-                <p><a href={{ url_for('members_page') }}>Members page</a> (login required)</p>
-                <p><a href={{ url_for('special_page') }}>Special page</a> (login with username 'user007' and password 'Password1')</p>
-            {% endblock %}
-            """)
 
 
 app.run(port=5001)
