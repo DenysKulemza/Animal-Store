@@ -1,9 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from db import db
 
 from logger.logging import loggers
-from settings import app
-
-db = SQLAlchemy(app)
 
 
 class User(db.Model):
@@ -12,6 +9,7 @@ class User(db.Model):
     login = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(10), nullable=False)
     name = db.Column(db.String(20), nullable=False)
+    phone_number = db.Column(db.String(20))
     address = db.Column(db.String(40), nullable=False)
 
     @staticmethod
