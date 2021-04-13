@@ -1,8 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-from settings import app
+from db import db
 from logger.logging import loggers
-
-db = SQLAlchemy(app)
 
 
 class Centers(db.Model):

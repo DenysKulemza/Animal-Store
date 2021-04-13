@@ -1,9 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
-
+from db import db
 from logger.logging import loggers
-from settings import app
-
-db = SQLAlchemy(app)
 
 
 class Animal(db.Model):

@@ -1,10 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
-from settings import app
-from logger.warning_log import warning_log
-
+from db import db
 from db.user_db import User
-
-db = SQLAlchemy(app)
+from logger.warning_log import warning_log
 
 
 class AccessToken(db.Model):

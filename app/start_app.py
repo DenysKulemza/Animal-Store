@@ -4,27 +4,39 @@ import datetime
 from json import dumps
 
 import jwt
-from flask import request, Response
+from flask import request, Response, render_template
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
+from db import db
 from db.access_request import AccessToken
 from db.animal_db import Animal
+from db.center_db import Centers
 from db.specie_db import Specie
 from db.user_db import User
-from error_variables.error_msg import exists_animal_in_center_error_msg
-from error_variables.error_msg import exists_center_error_msg
-from error_variables.error_msg import invalid_animal_error_msg
-from error_variables.error_msg import invalid_id_error_msg
-from error_variables.error_msg import invalid_sign_in_error_msg
-from error_variables.error_msg import invalid_species_error_msg
-from error_variables.error_msg import invalid_token_error_msg
-from error_variables.error_msg import invalid_user_error_msg
+from error_variables.error_msg import *
 from settings import app
 from validation.getters import get_access, get_specie
-from validation.valid import center_exists, check_center_before_delete
+from validation.valid import check_center_before_delete
+from validation.valid import valid_animals, valid_species
 from validation.valid import valid_token, valid_login_password
-from validation.valid import valid_user, valid_animals, valid_species
 
 app.config['SECRET_KEY'] = 'secret key'
+
+
+class RegistrationForm(Form):
+    username = StringField('Username', [validators.Length(min=4, max=25)])
+    email = StringField('Email Address', [validators.Length(min=6, max=35)])
+    password = PasswordField('New Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Repeat Password')
+    accept_tos = BooleanField('I accept the TOS', [validators.DataRequired()])
+
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 
 @app.route('/login')
@@ -52,25 +64,33 @@ def get_token():
                         400, mimetype='application/json')
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     """Register center in database
 
     :return: response
     """
-    request_data = request.get_json()
-    if center_exists(request_data['Login']):
-        return Response(exists_center_error_msg,
-                        status=401, mimetype='application/json')
-    if valid_user(request_data):
-        User.add_user(request, request_data['Login'],
-                      request_data['Password'],
-                      request_data['Address'])
-        return Response("", status=201, mimetype='application/json')
-    else:
-        return Response(dumps(invalid_user_error_msg),
-                        status=400, mimetype='application/json')
 
+    """
+        request_data = request.get_json()
+        if center_exists(request_data['Login']):
+            return Response(exists_center_error_msg,
+                            status=401, mimetype='application/json')
+        if valid_user(request_data):
+            User.add_user(request, request_data['Login'],
+                          request_data['Password'],
+                          request_data['Address'])
+            return Response("", status=201, mimetype='application/json')
+        else:
+            return Response(dumps(invalid_user_error_msg),
+                            status=400, mimetype='application/json')
+                            """
+
+    if request.method == 'POST':
+        print(request.form)
+        return render_template('register.html')
+
+    return render_template('register.html')
 
 @app.route('/centers')
 def get_centers():
@@ -78,7 +98,7 @@ def get_centers():
 
     :return: all centers form database
     """
-    return str(User.get_all_centers())
+    return str(Centers.get_all_centers())
 
 
 @app.route('/animals', methods=['POST'])
@@ -172,7 +192,7 @@ def get_current_specie(specie_id):
     """Get some specie by id
 
     :param specie_id: id of some specie
-    :return: return detailed view of Specie
+    :return: return detailed front of Specie
     """
     return str(Specie.get_specie_animals(specie_id))
 
@@ -219,4 +239,6 @@ def delete_animal(animal_id):
                             status=200, mimetype='application/json')
 
 
-app.run(port=5001)
+if __name__ == '__main__':
+    app.static_folder = 'static'
+    app.run(port=5001)

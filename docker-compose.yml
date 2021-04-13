@@ -1,0 +1,11 @@
+version: '3'
+services:
+  msql:
+    image: mysql
+    restart: always
+    build: .
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: MY_STRONG_PASSWORD
+      MYSQL_DATABASE: animal_store

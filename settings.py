@@ -2,7 +2,7 @@ from flask import Flask
 from configparser import ConfigParser
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='app/templates')
 
 parser = ConfigParser()
 config_path = r'{0}'.format(os.path.abspath('config.ini'))

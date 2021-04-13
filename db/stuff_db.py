@@ -1,10 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
+from db import db
 from db.access_request import AccessToken
 from db.animal_db import Animal
-from settings import app
 from logger.logging import loggers
-
-db = SQLAlchemy(app)
 
 
 class Stuff(db.Model):
