@@ -87,10 +87,57 @@ def register():
                             """
 
     if request.method == 'POST':
-        print(request.form)
-        return render_template('register.html')
+        return render_template('index.html')
 
     return render_template('register.html')
+
+
+@app.route('/welcome')
+def welcome_page():
+    return render_template('index.html')
+
+
+@app.route('/cats', methods=['GET', 'POST'])
+def get_cats():
+    if request.method == 'POST':
+        return render_template('for_cats.html')
+    return render_template('for_cats.html')
+
+
+@app.route('/dogs')
+def get_dogs():
+    return render_template('for_dogs.html')
+
+
+@app.route('/ferrets')
+def get_ferrets():
+    return render_template('for_ferrets.html')
+
+
+@app.route('/profile')
+def get_profile():
+    return render_template('profile.html')
+
+
+@app.route('/info')
+def get_info():
+    return render_template('info.html')
+
+
+@app.route('/fish')
+def get_fish():
+    return render_template('for_fish.html')
+
+
+@app.route('/birds')
+def get_birds():
+    return render_template('for_birds.html')
+
+
+@app.route('/rodents')
+def get_rodents():
+    return render_template('for_rodents.html')
+
 
 @app.route('/centers')
 def get_centers():
@@ -240,5 +287,5 @@ def delete_animal(animal_id):
 
 
 if __name__ == '__main__':
-    app.static_folder = 'static'
+    app.static_folder = '/static'
     app.run(port=5001)

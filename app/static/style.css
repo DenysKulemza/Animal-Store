@@ -1,0 +1,93 @@
+.aczii {
+    font-size: 23px;
+}
+
+
+
+.action1 {
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-color: #fcc000;
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+}
+
+.action2 {
+    height: 75px;
+    width: 75px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-color: #fb4848;
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+    position: absolute;
+}
+
+.action1 div {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.action2 div {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sales {
+    font-size: 12px;
+    padding: 5px 20px;
+    color: #fff;
+    background-color: #fb4848;
+    width: 80px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.reference {
+display: none;
+}
+.reference ~ .story {
+display: none;
+}
+.reference + label {
+font-size: 23px;
+padding: 0;
+border-bottom: 2px solid #fcc000;
+font-weight: normal;
+padding-bottom: 5px;
+background-color: #fff;
+color: black;
+cursor: pointer;
+display: inline-block;
+}
+.reference:checked ~ .story {
+    display: block;
+    background: #fff;
+    padding: 10px;
+}

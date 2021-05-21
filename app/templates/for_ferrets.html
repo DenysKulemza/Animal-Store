@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Хорькам</title>
+    <style>
+        .aczii {
+            font-size: 23px;
+        }
+
+
+        .action1 {
+            height: 75px;
+            width: 75px;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 50%;
+            background-color: #fcc000;
+            font-size: 20px;
+            color: #000;
+            text-decoration: none;
+            position: absolute;
+        }
+
+        .action2 {
+            height: 75px;
+            width: 75px;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 50%;
+            background-color: #fb4848;
+            font-size: 20px;
+            color: #000;
+            text-decoration: none;
+            position: absolute;
+        }
+
+        .action1 div {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .action2 div {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            margin: auto;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .sales {
+            font-size: 12px;
+            padding: 5px 20px;
+            color: #fff;
+            background-color: #fb4848;
+            width: 80px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .reference {
+            display: none;
+        }
+
+        .reference ~ .story {
+            display: none;
+        }
+
+        .reference + label {
+            font-size: 23px;
+            padding: 0;
+            border-bottom: 2px solid #fcc000;
+            font-weight: normal;
+            padding-bottom: 5px;
+            background-color: #fff;
+            color: black;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .reference:checked ~ .story {
+            display: block;
+            background: #fff;
+            padding: 10px;
+        }
+
+        /*.product-card {background-color: #efeeee; border-radius: 10px;}*/
+        .UAH {
+            border-bottom: 5px solid #ffc100;
+        }
+
+        .price {
+            font-size: 12px;
+        }
+
+        .product-specific {
+            font-size: 15px;
+        }
+
+        .product-description {
+            background-color: #f4f4c8;
+            padding: 5px 2px 2px 5px;
+            margin-bottom: 3px;
+        }
+
+        .brands {
+            color: #000;
+            border: 2px solid #ffc100;
+            border-radius: 8px;
+            max-height: 300px;
+        }
+
+        .nav-link {
+            color: #000;
+            border-bottom: 2px solid #ffc100;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background-color: #ffc100
+        }
+
+        .main-img {
+            background-color: #ffc100
+        }
+
+        div.brends img {
+            border: 1px solid #bdbcbc;
+        }
+
+        div.brends img:hover {
+            border: 2px solid #ffc100;
+        }
+
+        footer {
+            background-color: #bdbcbc
+        }
+
+    </style>
+</head>
+<body>
+<header class="container">
+    <div id="top-head" class="row justify-content-center align-items-center pt-3">
+        <div id="logo" class="col-md-4">
+            <a href="welcome">
+                <ul>Home Page</ul>
+            </a>
+        </div>
+
+        <div id="search" class=" col-md-5">
+            <div class="input-group">
+                <input type="text" id="Find" class="form-control" placeholder="Поиск товаров" onkeyup="myFunction()">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Найти</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="user" class="col-md-3">
+
+            <a href="profile" class="btn btn-success">Профиль</a>
+            <a href="info" class="btn btn-success">Контакты</a>
+        </div>
+    </div>
+
+    <div id="nav" class="row pt-5">
+
+        <ul class="nav nav-pills nav-justified col-md-12 p-0">
+            <li class="nav-item">
+                <a class="nav-link" href="dogs">Собакам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cats">Кошкам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="ferrets">Хорькам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="rodents">Грызунам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="fish">Рыбам</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="birds">Птицам</a>
+            </li>
+        </ul>
+
+    </div>
+
+</header>
+
+<main>
+
+    <div class="top-main container p-2">
+        <h3 class="nav-link p-0">Всё для хорьков</h3>
+    </div>
+
+    <div class="main-body container p-2">
+
+        <div class="row text-center">
+
+            <div class="brands col-2">
+
+                <h3 class="text-left">Бренды</h3>
+
+                <div class="option" align="left">
+                    <input type="checkbox" value id="Acana check" onchange="updateHidden()">
+                    <span>Acana</span>
+                </div>
+                <div class="option" align="left">
+                    <input type="checkbox" value id="Orijen check" onchange="updateHidden()">
+                    <span>Orijen</span>
+                </div>
+                <div class="option" align="left">
+                    <input type="checkbox" value id="Hill check" onchange="updateHidden()">
+                    <span>Hill's</span>
+                </div>
+                <div class="option" align="left">
+                    <input type="checkbox" value id="Grandorf check" onchange="updateHidden()">
+                    <span>Grandorf</span>
+                </div>
+
+            </div>
+
+            <div class="col-10">
+
+                <h3>Товары</h3>
+
+                <div class='Item' id="Grandorf">
+
+                    <h3 class="product-title text-left">
+                        <a class="text-dark" href="#"><u>Grandorf Lamb & Rice Kitten</u></a>
+                    </h3>
+
+                    <div class="product-body row">
+                        <div class="product-image col-2">
+
+                            <img src="https://pethouse.ua/assets/images/prods/small/grandorf/000008673.jpg" alt="">
+                        </div>
+                        <div class="product-info col-5">
+
+                            <p class="product-description text-left">Гипоаллергенный сухой корм с мясом ягненка,
+                                индейкой и цельным бурым рисом для котят от 3-х недель.</p>
+                            <div class="product-specific text-left">
+                                <p class="p-0 m-0"><b>Животное</b> - <span class="animal">Хорькам</span></p>
+
+                                <p class="p-0 m-0"><b>Категория</b> - <span class="category">Корм</span></p>
+
+                            </div>
+                        </div>
+                        <div class="product-price col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    400 грамм
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">240.00 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    2 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">999.00 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                </div>
+
+                <div class='Item' id="Orijen">
+
+                    <h3 class="product-title text-left">
+                        <a class="text-dark" href="#"><u>Orijen Cat & Kitten 40/20</u></a>
+                    </h3>
+
+                    <div class="product-body row">
+                        <div class="product-image col-2">
+
+                            <img src="https://pethouse.ua/assets/images/prods/small/orijen/000000226.jpg" alt=""
+                                 height="220px" width="130px">
+                        </div>
+                        <div class="product-info col-5">
+
+                            <p class="product-description text-left">Биологически соответствующий сухой корм, богатый
+                                разными видами мяса с добавлением небольшого количества фруктов, овощей и лекарственных
+                                трав для кошек и котят всех пород. Ингредиенты в составе корма Orijen находятся в
+                                биологически соответствующем соотношении 85% мяса, 15% фруктов и овощей, 0% злаков.</p>
+                            <div class="product-specific text-left">
+                                <p class="p-0 m-0"><b>Животное</b> - <span class="animal">Хорькам</span></p>
+
+                                <p class="p-0 m-0"><b>Категория</b> - <span class="category">Корм</span></p>
+
+                            </div>
+                        </div>
+                        <div class="product-price col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    340 грамм
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">275.21 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    5,4 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">2486.00 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                </div>
+
+
+                <div class='Item' id="Hill">
+
+                    <h3 class="product-title text-left">
+                        <a class="text-dark" href="#"><u>Hill's SP Kitten Chicken</u></a>
+                    </h3>
+
+                    <div class="product-body row">
+                        <div class="product-image col-2">
+
+                            <img src="https://pethouse.ua/assets/images/prods/small/hills/000000158.jpg" alt="">
+                        </div>
+                        <div class="product-info col-5">
+
+                            <p class="product-description text-left">Полнорационный сухой корм с курицей для котят
+                                возрастом до 1 года.</p>
+                            <div class="product-specific text-left">
+                                <p class="p-0 m-0"><b>Животное</b> - <span class="animal">Хорькам</span></p>
+
+                                <p class="p-0 m-0"><b>Категория</b> - <span class="category">Корм</span></p>
+
+                            </div>
+                        </div>
+                        <div class="product-price col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    300 грамм
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">138.40 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    3 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">977.90 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    5 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">1500.90 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                </div>
+
+                <div class='Item' id="Acana">
+
+                    <h3 class="product-title text-left">
+                        <a class="text-dark" href="#"><u>Acana Wild Prairie cat 37/20</u></a>
+                    </h3>
+
+                    <div class="product-body row">
+                        <div class="product-image col-2">
+
+                            <img src="https://pethouse.ua/assets/images/prods/small/acana/000000051.jpg" alt="">
+                        </div>
+                        <div class="product-info col-5">
+
+                            <p class="product-description text-left">Полнорационный сбалансированный беззерновой сухой
+                                корм для кошек всех возрастов на основе свежего мяса цыпленка и рыбы.</p>
+                            <div class="product-specific text-left">
+                                <p class="p-0 m-0"><b>Животное</b> - <span class="animal">Хорькам</span></p>
+
+                                <p class="p-0 m-0"><b>Категория</b> - <span class="category">Корм</span></p>
+
+                            </div>
+                        </div>
+                        <div class="product-price col-5">
+                            <div class="row">
+                                <div class="col-4">
+                                    300 грамм
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">200.40 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    1,8 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">1100.90 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    5 кг
+                                </div>
+                                <div class="col-5">
+                                    <h4 class="UAH">2000.90 <small class="price">грн</small></h4>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-success btn-sm">Купить</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                </div>
+
+            </div>
+            <script>
+							function updateHidden() {
+
+								if (document.getElementById("Orijen check").checked === false
+									&& document.getElementById("Acana check").checked === false
+									&& document.getElementById("Hill check").checked === false
+									&& document.getElementById('Grandorf check').checked === false) {
+
+									document.getElementById("Grandorf").hidden = false;
+									document.getElementById("Orijen").hidden = false;
+									document.getElementById("Hill").hidden = false;
+									document.getElementById('Acana').hidden = false;
+								} else {
+									document.getElementById("Grandorf").hidden = !document.getElementById("Grandorf check").checked;
+									document.getElementById("Orijen").hidden = !document.getElementById("Orijen check").checked;
+									document.getElementById("Acana").hidden = !document.getElementById("Acana check").checked;
+									document.getElementById('Hill').hidden = !document.getElementById('Hill check').checked;
+								}
+							}
+
+							function myFunction() {
+								var input = document.getElementById("Find");
+								var filter = input.value.toLowerCase();
+								var nodes = document.getElementsByClassName('Item');
+
+								for (i = 0; i < nodes.length; i++) {
+									if (nodes[i].innerText.toLowerCase().includes(filter)) {
+										nodes[i].style.display = "block";
+									} else {
+										nodes[i].style.display = "none";
+									}
+								}
+							}
+            </script>
+
+</main>
+
+<footer class="mt-5">
+
+    <div class="footer-top container row justify-content-center mx-auto pt-3">
+
+        <div class="about col-3 ">
+
+            <h2 class="text-light">О компании</h2>
+
+            <ul style="list-style: none;">
+                <li><a class="text-light" href="#">Компания</a></li>
+                <li><a class="text-light" href="#">Карьера</a></li>
+                <li><a class="text-light" href="#">Поставщикам</a></li>
+                <li><a class="text-light" href="#">Благотворительность</a></li>
+                <li><a class="text-light" href="#">Написать директору</a></li>
+            </ul>
+
+        </div>
+
+        <div class="info col-3">
+
+            <h2 class="text-light">Информация</h2>
+
+            <ul style="list-style: none;">
+                <li><a class="text-light" href="#">Оплата и доставка</a></li>
+                <li><a class="text-light" href="#">Возврат товаров</a></li>
+                <li><a class="text-light" href="#">Политика конфиденциальности</a></li>
+                <li><a class="text-light" href="#">Условия использования</a></li>
+                <li><a class="text-light" href="#">Представленные бренды</a></li>
+                <li><a class="text-light" href="#">Карта сайта</a></li>
+            </ul>
+
+        </div>
+        <div class="contact col-3">
+
+            <h2 class="text-light">Контакты</h2>
+
+            <ul style="list-style: none;">
+                <li><a class="text-light" href="#">+380 (96) 813-17-09</a></li>
+                <li><a class="text-light" href="#">daniil.zakharov@nure.ua</a></li>
+                <li><a class="text-light" href="#">Youtube</a></li>
+            </ul>
+
+        </div>
+        <div class="payment col-3">
+
+            <h2 class="text-light">Способы оплаты</h2>
+
+            <ul style="list-style: none;">
+                <li><a class="text-light" href="#"><img src="https://pethouse.ua/assets/templates/zoog2/images/v24.png"
+                                                        alt=""></a></li>
+                <li><a class="text-light" href="#"><img
+                        src="https://pethouse.ua/assets/templates/zoog2/images/google-pay.png" alt=""></a></li>
+                <li><a class="text-light" href="#"><img
+                        src="https://pethouse.ua/assets/templates/zoog2/images/apple-pay.png" alt=""></a></li>
+                <li><a class="text-light" href="#"><img src="https://pethouse.ua/assets/templates/zoog2/images/mc24.png"
+                                                        alt=""></a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-botom container mb-0 pb-2">
+
+        <p class="text-light">© 2021 - &#8734; Интернет-зоомагазин Счасливый Питомец</p>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
